@@ -45,6 +45,7 @@
     "daemonite-material": "4.1.1",
     "file-saver": "2.0.2",
     "fullcalendar": "3.10.1",
+    "hammerjs": "^2.0.8",
     "jquery": "3.4.1",
     "jquery-ui-dist": "1.12.1",
     "lodash": "4.17.11",
