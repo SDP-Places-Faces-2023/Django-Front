@@ -15,6 +15,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeInsertComponent } from './employees/employee-insert/employee-insert.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [	
@@ -36,6 +37,7 @@ import { EmployeeInsertComponent } from './employees/employee-insert/employee-in
     MatIconModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
