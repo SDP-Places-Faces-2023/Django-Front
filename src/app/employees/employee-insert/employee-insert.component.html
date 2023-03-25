@@ -1,9 +1,10 @@
-<form (submit)="addEmployee()">
+<form>
   <div class="d-flex justify-content-center align-items-center">
     <div>
       <mat-form-field class="example-full-width">
         <mat-label>Name</mat-label>
         <input
+          required
           matInput
           type="text"
           id="name"
@@ -14,16 +15,69 @@
     </div>
     <div>
       <mat-form-field class="example-full-width">
-        <mat-label>Position</mat-label>
+        <mat-label>Surname</mat-label>
         <input
+          required
           matInput
           type="text"
-          id="position"
-          [(ngModel)]="newEmployeePosition"
+          id="surname"
+          [(ngModel)]="newEmployeeSurname"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Patronymic</mat-label>
+        <input
+          required
+          matInput
+          type="text"
+          id="patronymic"
+          [(ngModel)]="newEmployeePatronymic"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Pincode</mat-label>
+        <input
+          required
+          matInput
+          type="text"
+          id="pincode"
+          [(ngModel)]="newEmployeePincode"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Department</mat-label>
+        <input
+          required
+          matInput
+          type="text"
+          id="department"
+          [(ngModel)]="newEmployeeDepartment"
           [ngModelOptions]="{ standalone: true }"
         />
       </mat-form-field>
     </div>
   </div>
-  <button mat-raised-button color="primary" type="submit">Add</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="
+      !newEmployeeName ||
+      !newEmployeeSurname ||
+      !newEmployeePatronymic ||
+      !newEmployeePincode ||
+      !newEmployeeDepartment
+    "
+  >
+    Add
+  </button>
 </form>

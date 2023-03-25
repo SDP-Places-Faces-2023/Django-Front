@@ -24,3 +24,11 @@ export class HttpServiceService {
     return this.http.post(url, JSON.stringify(data));
   }
 }
+
+export interface ApiResponse {
+
+  success: boolean;
+
+  // add any other properties that the API response may include
+
+}

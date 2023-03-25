@@ -7,6 +7,7 @@ import {
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
 import { finalize, map, delay } from "rxjs/operators";
+import { HttpServiceService, ApiResponse } from "src/app/http-service.service";
 
 @Component({
   selector: 'app-employee-insert',
@@ -18,6 +19,11 @@ export class EmployeeInsertComponent implements OnInit {
   loading: boolean;
   errMessage: string;
   personType: string = "local";
+  newEmployeeName: string = "";
+  newEmployeeSurname: string = "";
+  newEmployeePatronymic: string = "";
+  newEmployeePincode: string = "";
+  newEmployeeDepartment: string = "";
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -25,31 +31,23 @@ export class EmployeeInsertComponent implements OnInit {
     },
     private dialogRef: MatDialogRef<EmployeeInsertComponent>,
     private dialog: MatDialog,
+    private httpService: HttpServiceService
   ) {}
   ngOnInit() {}
 
-  // onSubmit() {
-  //   if (!this.form.valid) {
-  //     return;
-  //   }
-  //   if (this.loading) {
-  //     return;
-  //   }
-  //   this.loading = true;
-  //   this.getPersonPelcByPincode()
-  //     .pipe(finalize(() => (this.loading = false)))
-  //     .subscribe((pelcByPincodeData) => {
-  //       const ref = this.dialog.open(ListenerFormComponent, {
-  //         ...TableDialogConfig,
-  //         data: {
-  //           row: {
-  //             ...pelcByPincodeData,
-  //             pincode: this.form.form.value.pincode,
-  //           },
-  //           pincodeDialogFormValue: this.form.value,
-  //           table: this.data.table,
-  //         },
-  //       });
-  //     });
-  // }
+  onSubmit() {
+    const data = {
+      name: this.newEmployeeName,
+      surname: this.newEmployeeSurname,
+      fathers_name: this.newEmployeePatronymic,
+      pincode: this.newEmployeePincode,
+      department: this.newEmployeeDepartment,
+    }
+
+    this.httpService.postData('http://127.0.0.1:9000/model_api_connection/add_employee/', data).subscribe((res: ApiResponse) => {
+      if(res.success == true) {
+        this.dialogRef.close();
+      }
+    })
+  }
 }
