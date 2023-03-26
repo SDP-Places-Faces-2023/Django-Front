@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpServiceService } from '../http-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeInsertComponent } from './employee-insert/employee-insert.component';
+import { EmployeeImageComponent } from './employee-image/employee-image.component';
 
 interface Employee {
   id: string;
@@ -44,7 +45,7 @@ export class EmployeesComponent implements OnInit {
   getEmployees() {
     this.loading = true;
     this.httpService
-      .getData('http://127.0.0.1:9000/model_api_connection/list_employees/', {})
+      .getData('/model_api_connection/list_employees/', {})
       .subscribe((res) => {
         this.employeeList = res;
         this.updateDataSource();
@@ -79,6 +80,19 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
+  onAddImages(employee: Employee) {
+    const dialogRef = this.dialog.open(EmployeeImageComponent, {
+      position: { right: '0' },
+      height: '100vh',
+      width: '400px',
+      data: employee,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getEmployees()
+    });
+  }
+
   editEmployee(employee: Employee) {
     const dialogRef = this.dialog.open(EmployeeInsertComponent, {
       position: { right: '0' },
@@ -101,7 +115,7 @@ export class EmployeesComponent implements OnInit {
 
     this.httpService
       .postData(
-        'http://127.0.0.1:9000/model_api_connection/delete_employee/',
+        '/model_api_connection/delete_employee/',
         postData
       )
       .subscribe((response) => {

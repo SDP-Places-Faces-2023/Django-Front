@@ -54,7 +54,7 @@ export class EmployeeInsertComponent implements OnInit {
 
     this.httpService
       .postData(
-        'http://127.0.0.1:9000/model_api_connection/add_employee/',
+        '/model_api_connection/add_employee/',
         postData
       )
       .subscribe((res: ApiResponse) => {
@@ -76,7 +76,7 @@ export class EmployeeInsertComponent implements OnInit {
 
     this.httpService
       .postData(
-        'http://127.0.0.1:9000/model_api_connection/edit_employee/',
+        '/model_api_connection/edit_employee/',
         postData
       )
       .subscribe((response) => {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BASE_URL } from './globalVars';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ export class HttpServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getData(url: string, data: any) {
+  getData(api: string, data: any) {
+    let url = BASE_URL + api
     let httpParams = new HttpParams();
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -21,15 +23,12 @@ export class HttpServiceService {
     return this.http.get<string[]>(url, { params: httpParams });
   }
 
-  postData(url: string, data: FormData): Observable<any> {
+  postData(api: string, data: FormData): Observable<any> {
+    let url = BASE_URL + api
       return this.http.post<any>(url, data);
   }
 }
 
 export interface ApiResponse {
-
   success: boolean;
-
-  // add any other properties that the API response may include
-
 }

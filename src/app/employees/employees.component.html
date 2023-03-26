@@ -6,9 +6,7 @@
       <mat-progress-spinner></mat-progress-spinner>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mb-3">
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
+    <table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8 mb-3">
 
       <!-- ID Column -->
       <ng-container matColumnDef="id">
@@ -55,6 +53,9 @@
           </button>
           <button mat-icon-button color="warn" (click)="deleteEmployee(element)">
             <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onAddImages(element)">
+            <mat-icon>add_photo_alternate</mat-icon>
           </button>
         </td>
       </ng-container>

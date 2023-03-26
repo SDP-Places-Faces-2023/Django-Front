@@ -13,15 +13,21 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeInsertComponent } from './employees/employee-insert/employee-insert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { EmployeeImageComponent } from './employees/employee-image/employee-image.component';
 
 @NgModule({
   declarations: [	
     AppComponent,
     EmployeesComponent,
-    EmployeeInsertComponent
+    EmployeeInsertComponent,
+    EmployeeImageComponent
    ],
   imports: [
     BrowserModule,
@@ -38,11 +44,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatListModule,
+    MatCardModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    EmployeeInsertComponent
+    EmployeeInsertComponent,
+    EmployeeImageComponent
   ]
 })
 export class AppModule { }
