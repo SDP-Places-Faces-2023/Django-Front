@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 8px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  
+  th {
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+  }
+  
+  tr.mat-row:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  tr.mat-row:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  

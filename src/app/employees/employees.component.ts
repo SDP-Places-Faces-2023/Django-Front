@@ -84,7 +84,7 @@ export class EmployeesComponent implements OnInit {
     const dialogRef = this.dialog.open(EmployeeImageComponent, {
       position: { right: '0' },
       height: '100vh',
-      width: '400px',
+      width: '800px',
       data: employee,
     });
 

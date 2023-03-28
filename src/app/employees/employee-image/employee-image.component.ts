@@ -10,6 +10,8 @@ import { finalize, map, delay } from 'rxjs/operators';
 import { HttpServiceService, ApiResponse } from 'src/app/http-service.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { FileUploadService, ImageResponse } from 'src/app/file-upload.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-employee-image',
@@ -17,8 +19,7 @@ import { FileUploadService, ImageResponse } from 'src/app/file-upload.service';
   styleUrls: ['./employee-image.component.scss']
 })
 export class EmployeeImageComponent implements OnInit {
-
-
+  images: any[] = [];
   currentFile?: File;
   progress = 0;
   message = '';
@@ -31,7 +32,8 @@ export class EmployeeImageComponent implements OnInit {
     private dialogRef: MatDialogRef<EmployeeImageComponent>,
     private dialog: MatDialog,
     private httpService: HttpServiceService,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -39,14 +41,25 @@ export class EmployeeImageComponent implements OnInit {
     
     const postData = new FormData();
     postData.append('pincode', this.data.pincode);
-    this.uploadService.hasImages(postData).subscribe((res: ImageResponse) => {
+    this.uploadService.hasImages(this.data.pincode).subscribe((res: ImageResponse) => {
       if (res.has_images) {
-        this.fileInfos = this.uploadService.getFiles(postData);
+        this.getImages()
       }
     })
     
     
     
+  }
+
+  getImages() {
+    let pincode = this.data.pincode
+    const postData = new FormData();
+    postData.append('pincode', pincode);
+
+    this.uploadService.getFiles(this.data.pincode).subscribe((res) => {
+      this.images = res;
+    })
+
   }
 
   selectFile(event: any): void {
@@ -74,7 +87,7 @@ export class EmployeeImageComponent implements OnInit {
           } else if (event instanceof HttpResponse) {
             this.message = event.body.message;
             
-            this.fileInfos = this.uploadService.getFiles(postData);
+            this.fileInfos = this.uploadService.getFiles(this.data.pincode);
           }
         },
         (err: any) => {

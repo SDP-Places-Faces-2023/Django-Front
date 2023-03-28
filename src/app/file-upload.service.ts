@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpParams, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BASE_URL } from './globalVars';
+import { BASE_URL } from './app.globals';
 
 @Injectable({
   providedIn: 'root'
@@ -24,39 +24,60 @@ export class FileUploadService {
     return this.http.request(req);
   }
 
-  getFiles(data: FormData): Observable<any> {
-    let url = BASE_URL + '/model_api_connection/get_images/'
-    let httpParams = new HttpParams();
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        httpParams = httpParams.set(key, data[key]);
-      }
-    }
-    return this.http.get(url, { params: httpParams });
+  // getFiles(data: FormData): Observable<any> {
+  //   let url = BASE_URL + '/model_api_connection/get_images/'
+  //   let httpParams = new HttpParams();
+
+  //   // const formData: FormData = new FormData();
+
+  //   // formData.append('pincode', data);
+
+  //   for (const key in data) {
+  //     if (data.hasOwnProperty(key)) {
+  //       httpParams = httpParams.set(key, data[key]);
+  //     }
+  //   }
+  //   return this.http.get<string[]>(url, { params: httpParams }, );
+  // }
+
+  getFiles(data: string): Observable<any> {
+    const url = BASE_URL + '/model_api_connection/get_images/' + '?' + 'pincode=' + data;
+    // const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+  
+    return this.http.post<string[]>(url, {});
   }
 
-  deleteFiles(data: FormData) {
+  deleteFiles(data: string) {
     let url = BASE_URL + '/model_api_connection/delete_images/'
 
     let httpParams = new HttpParams();
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        httpParams = httpParams.set(key, data[key]);
-      }
-    }
-    return this.http.post<any>(url, data);
+
+    const formData: FormData = new FormData();
+
+    formData.append('pincode', data);
+
+    const headers = {
+      'Access-Control-Allow-Origin': '*'
+    };
+
+    
+    return this.http.post<any>(url, formData);
   }
 
-  hasImages(data: FormData) {
+  hasImages(data: string) {
     let url = BASE_URL + '/model_api_connection/has_images/'
 
-    let httpParams = new HttpParams();
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        httpParams = httpParams.set(key, data[key]);
-      }
-    }
-    return this.http.post<any>(url, { params: httpParams });
+    let httpParams = new HttpParams().set('pincode', data);
+
+    const formData: FormData = new FormData();
+
+    formData.append('pincode', data);
+
+    const headers = {
+      'Access-Control-Allow-Origin': '*'
+    };
+
+    return this.http.post<any>(url, formData);
   }
 }
 

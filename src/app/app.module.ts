@@ -21,13 +21,19 @@ import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeInsertComponent } from './employees/employee-insert/employee-insert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EmployeeImageComponent } from './employees/employee-image/employee-image.component';
+import { HeaderComponent } from './header/header.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [	
+  declarations: [			
     AppComponent,
     EmployeesComponent,
     EmployeeInsertComponent,
-    EmployeeImageComponent
+    EmployeeImageComponent,
+    HeaderComponent,
+      AttendanceComponent
    ],
   imports: [
     BrowserModule,
@@ -47,9 +53,10 @@ import { EmployeeImageComponent } from './employees/employee-image/employee-imag
     MatProgressBarModule,
     MatListModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [
     EmployeeInsertComponent,

@@ -1,27 +1,28 @@
+<button mat-raised-button (click)="dialogRef.close()">Back</button>
 <div style="width: 100wh;">
-  <mat-toolbar *ngIf="currentFile" class="progress-bar">
-    <mat-progress-bar color="accent" [value]="progress"></mat-progress-bar>
+  <!-- <mat-toolbar *ngIf="currentFile" class="progress-bar">
+    <mat-progress-bar  color="accent" [value]="progress"></mat-progress-bar>
     <span class="progress">{{ progress }}%</span>
-  </mat-toolbar>
+  </mat-toolbar> -->
 
-  <mat-form-field>
+  <mat-form-field style="width: 100%;">
     <div>
       <mat-toolbar>
-        <input matInput [value]="fileName" />
+        <input matInput [value]="fileName" disabled/>
 
         <button
           mat-flat-button
           color="primary"
           [disabled]="!currentFile"
           (click)="upload()"
-        >
-          Upload
+        >Upload
         </button>
       </mat-toolbar>
 
       <input
         type="file"
         id="fileInput"
+        multiple
         (change)="selectFile($event)"
         name="fileInput"
       />
@@ -39,9 +40,28 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor="let file of fileInfos | async">
-        <a href="{{ file.url }}">{{ file.name }}</a>
-      </mat-list-item>
+      <div class="images">
+        <ng-container *ngFor="let image of images">
+          <div class="images__card" style="width: 30%;">
+            <img class="card-img-top" [src]="'data:image/jpeg;base64,' + image.image">
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 16px;">{{image.filename}}</h5>
+              <button mat-raised-button color="warn">Delete Image</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      
+
+        <!-- <div id="#imagesList" class="d-flex flex-row justify-content-between mb-5">
+          <div>
+            <p>{{image.filename}}</p>
+            <button mat-button (onclick)="">text</button>
+          </div>
+          <div>
+            <img [src]="'data:image/jpeg;base64,' + image.image">
+          </div>
+        </div> -->
     </mat-list>
   </mat-card-content>
 </mat-card>
