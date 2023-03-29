@@ -63,6 +63,7 @@ export class EmployeesComponent implements OnInit {
         patronymic: employee.fields.patronymic,
         pincode: employee.fields.pincode,
         department: employee.fields.department,
+        pk: employee.pk
       };
     });
     this.dataSource.data = newData;

@@ -1,21 +1,22 @@
 <button mat-raised-button (click)="dialogRef.close()">Back</button>
-<div style="width: 100wh;">
+<div style="width: 100wh">
   <!-- <mat-toolbar *ngIf="currentFile" class="progress-bar">
     <mat-progress-bar  color="accent" [value]="progress"></mat-progress-bar>
     <span class="progress">{{ progress }}%</span>
   </mat-toolbar> -->
 
-  <mat-form-field style="width: 100%;">
+  <mat-form-field style="width: 100%">
     <div>
       <mat-toolbar>
-        <input matInput [value]="fileName" disabled/>
+        <input matInput [value]="fileName" disabled />
 
         <button
           mat-flat-button
           color="primary"
           [disabled]="!currentFile"
           (click)="upload()"
-        >Upload
+        >
+          Upload
         </button>
       </mat-toolbar>
 
@@ -37,23 +38,54 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>List of Files</mat-card-title>
+    <button
+      class="mr-3"
+      mat-raised-button
+      color="warn"
+      [disabled]="!photosForDeletion || !hasImages"
+      (click)="deleteSelectedImages()"
+    >
+      Delete Selected
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      [disabled]="!hasImages"
+      (click)="bulkDelete()"
+    >
+      Delete All Images
+    </button>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content  *ngIf="hasImages">
     <mat-list role="list">
       <div class="images">
         <ng-container *ngFor="let image of images">
-          <div class="images__card" style="width: 30%;">
-            <img class="card-img-top" [src]="'data:image/jpeg;base64,' + image.image">
+          <div class="images__card" style="width: 30%; position: relative">
+            <img
+              class="card-img-top"
+              [src]="'data:image/jpeg;base64,' + image.image"
+            />
             <div class="card-body">
-              <h5 class="card-title" style="font-size: 16px;">{{image.filename}}</h5>
-              <button mat-raised-button color="warn">Delete Image</button>
+              <h5 class="card-title" style="font-size: 16px">
+                {{ image.filename }}
+              </h5>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="deleteImage(image.filename)"
+              >
+                Delete Image
+              </button>
             </div>
+            <mat-slide-toggle
+              class="toggle-position"
+              (change)="onToggleChange($event, image)"
+            ></mat-slide-toggle>
           </div>
         </ng-container>
       </div>
-      
 
-        <!-- <div id="#imagesList" class="d-flex flex-row justify-content-between mb-5">
+      <!-- <div id="#imagesList" class="d-flex flex-row justify-content-between mb-5">
           <div>
             <p>{{image.filename}}</p>
             <button mat-button (onclick)="">text</button>
@@ -64,4 +96,8 @@
         </div> -->
     </mat-list>
   </mat-card-content>
+  <div style="width: 100%;" class="d-flex flex-column justify-content-center align-items-center mt-5">
+    <img src="../../../assets/icons/no-data.png" alt="" class="mb-3">
+    <p style="font-size: 24px;">No images found ...</p>
+  </div>
 </mat-card>

@@ -9,19 +9,15 @@ import { BASE_URL } from './app.globals';
 export class FileUploadService {
   constructor(private http: HttpClient) { }
 
-  upload(file: File, data: string): Observable<HttpEvent<any>> {
+  upload(file: File, data: string): Observable<any> {
     let url = BASE_URL + '/model_api_connection/upload_images/'
     const formData: FormData = new FormData();
 
-    formData.append('file', file);
+    formData.append('images', file);
     formData.append('pincode', data);
 
-    const req = new HttpRequest('POST', url, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
 
-    return this.http.request(req);
+    return this.http.post<any>(url, formData);
   }
 
   // getFiles(data: FormData): Observable<any> {
@@ -47,35 +43,40 @@ export class FileUploadService {
     return this.http.post<string[]>(url, {});
   }
 
-  deleteFiles(data: string) {
-    let url = BASE_URL + '/model_api_connection/delete_images/'
-
+  deleteImage(data: string, images: any[]) {
+    let url = BASE_URL + '/model_api_connection/delete_files/'
     let httpParams = new HttpParams();
-
     const formData: FormData = new FormData();
+    formData.append('pincode', data);
+    for(let i = 0; i < images.length; i++) {
+      formData.append('filenames', images[i]);
+    }
+    // const formData = {
+    //   pincode: data,
+    //   filenames: images
+    // }
 
+    return this.http.post<any>(url, formData);
+  }
+
+  bulkDelete(data: string) {
+    let url = BASE_URL + '/model_api_connection/delete_images/'
+    let httpParams = new HttpParams();
+    const formData: FormData = new FormData();
     formData.append('pincode', data);
 
-    const headers = {
-      'Access-Control-Allow-Origin': '*'
-    };
-
+    // const formData = {
+    //   pincode: data
+    // }
     
     return this.http.post<any>(url, formData);
   }
 
   hasImages(data: string) {
     let url = BASE_URL + '/model_api_connection/has_images/'
-
-    let httpParams = new HttpParams().set('pincode', data);
-
     const formData: FormData = new FormData();
-
     formData.append('pincode', data);
-
-    const headers = {
-      'Access-Control-Allow-Origin': '*'
-    };
+    
 
     return this.http.post<any>(url, formData);
   }
@@ -83,5 +84,10 @@ export class FileUploadService {
 
 export interface ImageResponse {
     has_images: boolean;
+}
+
+export interface UploadResponse {
+  error: string;
+  success: boolean;
 }
   

@@ -25,15 +25,18 @@ import { HeaderComponent } from './header/header.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { DatePipe } from '@angular/common';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
     EmployeesComponent,
     EmployeeInsertComponent,
     EmployeeImageComponent,
     HeaderComponent,
-      AttendanceComponent
+      AttendanceComponent,
+      ConfirmationDialogComponent
    ],
   imports: [
     BrowserModule,
@@ -54,13 +57,15 @@ import { DatePipe } from '@angular/common';
     MatListModule,
     MatCardModule,
     MatToolbarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [
     EmployeeInsertComponent,
-    EmployeeImageComponent
+    EmployeeImageComponent,
+    ConfirmationDialogComponent
   ]
 })
 export class AppModule { }

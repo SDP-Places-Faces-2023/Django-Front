@@ -66,7 +66,7 @@ export class EmployeeInsertComponent implements OnInit {
 
   onEdit() {
     const postData = new FormData();
-    postData.append('employee_id', this.data.id);
+    postData.append('employee_id', this.data.pk);
 
     postData.append('name', this.newEmployeeName);
     postData.append('surname', this.newEmployeeSurname);
