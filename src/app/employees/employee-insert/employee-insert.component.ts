@@ -8,6 +8,7 @@ import {
 } from '@angular/material/dialog';
 import { finalize, map, delay } from 'rxjs/operators';
 import { HttpServiceService, ApiResponse } from 'src/app/http-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee-insert',
@@ -28,7 +29,8 @@ export class EmployeeInsertComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EmployeeInsertComponent>,
     private dialog: MatDialog,
-    private httpService: HttpServiceService
+    private httpService: HttpServiceService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -58,9 +60,12 @@ export class EmployeeInsertComponent implements OnInit {
         postData
       )
       .subscribe((res: ApiResponse) => {
-        if (res.success == true) {
-          this.dialogRef.close();
-        }
+          if (res.success) {
+            this.openSnackBar('Employee added successfully', 'INSERT');
+            this.dialogRef.close();
+          } else {
+            this.openSnackBar(`Error: ${res.error}`, 'ERROR');
+          }
       });
   }
 
@@ -81,11 +86,17 @@ export class EmployeeInsertComponent implements OnInit {
       )
       .subscribe((response) => {
         if (response.success) {
-          console.log('Employee updated successfully');
+          this.openSnackBar('Employee updated successfully', 'UPDATE');
           this.dialogRef.close();
         } else {
-          console.log('Error updating employee:', response.message);
+          this.openSnackBar(`Error: ${response.error}`, 'ERROR');
         }
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

@@ -4,6 +4,7 @@ import { HttpServiceService } from '../http-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeInsertComponent } from './employee-insert/employee-insert.component';
 import { EmployeeImageComponent } from './employee-image/employee-image.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Employee {
   id: string;
@@ -35,7 +36,8 @@ export class EmployeesComponent implements OnInit {
 
   constructor(
     private httpService: HttpServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -108,10 +110,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(employee: Employee) {
-    // Call the delete_employee API endpoint
-
     const postData = new FormData();
-
     postData.append('pincode', employee.pincode);
 
     this.httpService
@@ -119,16 +118,19 @@ export class EmployeesComponent implements OnInit {
         '/model_api_connection/delete_employee/',
         postData
       )
-      .subscribe((response) => {
-        if (response.success) {
-          console.log('Employee deleted:', response.deleted);
-
-          // Remove the deleted employee from the data source
-
+      .subscribe((res) => {
+        if (res.success) {
+          this.openSnackBar('Employee deleted successfully', 'DELETE');
           this.getEmployees();
         } else {
-          console.log('Error deleting employee:', response.error);
+          this.openSnackBar(`Error: ${res.error}`, 'ERROR');
         }
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }
