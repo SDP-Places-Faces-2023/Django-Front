@@ -27,6 +27,11 @@ export class HttpServiceService {
     let url = BASE_URL + api
       return this.http.post<any>(url, data);
   }
+
+  postData2(api: string): Observable<any> {
+    let url = BASE_URL + api
+      return this.http.post<any>(url, {});
+  }
 }
 
 export interface ApiResponse {

@@ -10,6 +10,7 @@ export class TrainingComponent implements OnInit {
   constructor(private httpService: HttpServiceService) {}
   modelStatus: any;
   trainHistory: any;
+  cameraStatus: any;
 
   ngOnInit() {}
 
@@ -22,11 +23,23 @@ export class TrainingComponent implements OnInit {
   }
   startTrain() {
     this.httpService
-      .getData('/model_api_connection/train_model/', {})
+      .postData2('/model_api_connection/train_model/')
       .subscribe((res) => {
         this.trainHistory = res;
       });
   }
-  startCamera() {}
-  stopCamera() {}
+  startCamera() {
+    this.httpService
+      .getData('/model_api_connection/start_subscription/', {})
+      .subscribe((res) => {
+        this.cameraStatus = res;
+      });
+  }
+  stopCamera() {
+    this.httpService
+      .getData('/model_api_connection/start_subscription/', {})
+      .subscribe((res) => {
+        this.cameraStatus = res;
+      });
+  }
 }

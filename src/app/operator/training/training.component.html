@@ -28,8 +28,8 @@
     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
       <button mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
       <button mat-raised-button color="primary" (click)="stopCamera()">Stop camera</button>
-      <div>
-        camera started <br> camera stopped
+      <div *ngIf="cameraStatus">
+        {{cameraStatus.message}}
       </div>
     </div>
   </div>
