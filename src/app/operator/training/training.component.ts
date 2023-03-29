@@ -37,7 +37,7 @@ export class TrainingComponent implements OnInit {
   }
   stopCamera() {
     this.httpService
-      .getData('/model_api_connection/start_subscription/', {})
+      .getData('/model_api_connection/stop_subscription/', {})
       .subscribe((res) => {
         this.cameraStatus = res;
       });
