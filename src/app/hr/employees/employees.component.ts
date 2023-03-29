@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpServiceService } from '../http-service.service';
+import { HttpServiceService } from 'src/app/http-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeInsertComponent } from './employee-insert/employee-insert.component';
 import { EmployeeImageComponent } from './employee-image/employee-image.component';

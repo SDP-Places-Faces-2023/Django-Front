@@ -148,6 +148,7 @@ export class EmployeeImageComponent implements OnInit {
   }
 
   upload(): void {
+    this.images = []
     this.loading = true
     let pincode = this.data.pincode;
     const postData = new FormData();

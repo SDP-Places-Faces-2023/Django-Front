@@ -42,7 +42,7 @@
       class="mr-3"
       mat-raised-button
       color="warn"
-      [disabled]="!photosForDeletion || !hasImagesRes"
+      [disabled]="(photosForDeletion.length == 0) || !hasImagesRes"
       (click)="deleteSelectedImages()"
     >
       Delete Selected
