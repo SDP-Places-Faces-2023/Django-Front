@@ -9,12 +9,16 @@ import { BASE_URL } from './app.globals';
 export class FileUploadService {
   constructor(private http: HttpClient) { }
 
-  upload(file: File, data: string): Observable<any> {
-    let url = BASE_URL + '/model_api_connection/upload_images/'
+  upload(file: FileList, data: string): Observable<any> {
+    let url = BASE_URL + '/model_api_connection/upload_images/?pincode=' + data
     const formData: FormData = new FormData();
 
-    formData.append('images', file);
-    formData.append('pincode', data);
+    // const params = new HttpParams()
+    // .set('pincode', data)
+
+    for (let i = 0; i < file.length; i++) {
+      formData.append('images', file[i], file[i].name);
+    }
 
 
     return this.http.post<any>(url, formData);

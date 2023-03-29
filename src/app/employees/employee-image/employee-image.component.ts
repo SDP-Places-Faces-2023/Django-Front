@@ -29,10 +29,12 @@ export class EmployeeImageComponent implements OnInit {
   progress = 0;
   message = '';
   photosForDeletion: any[] = [];
-  hasImages: boolean;
+  hasImagesRes: boolean;
+  loading: boolean = false;
 
   fileName = 'Select File';
   fileInfos?: Observable<any>;
+  files: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -45,39 +47,47 @@ export class EmployeeImageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data);
+    this.hasImages()
+  }
 
+  hasImages() {
     const postData = new FormData();
     postData.append('pincode', this.data.pincode);
     this.uploadService
       .hasImages(this.data.pincode)
       .subscribe((res: ImageResponse) => {
         if (res.has_images) {
-          this.hasImages = res.has_images;
+          this.hasImagesRes = res.has_images;
           this.getImages();
         }
       });
   }
 
   getImages() {
+    this.loading = true
+    this.images = []
     let pincode = this.data.pincode;
     const postData = new FormData();
     postData.append('pincode', pincode);
 
     this.uploadService.getFiles(this.data.pincode).subscribe((res) => {
       this.images = res;
+      this.loading = false
     });
   }
 
   bulkDelete() {
     let pincode = this.data.pincode;
+    this.loading = true
 
     this.uploadService.bulkDelete(this.data.pincode).subscribe((res) => {
       if (res.success) {
         this.openSnackBar('Image folder deleted', 'DELETE');
         this.dialogRef.close();
+        this.loading = false
       } else {
         this.openSnackBar(`Error: ${res.error}`, 'ERROR');
+        this.loading = false
       }
     });
   }
@@ -85,6 +95,7 @@ export class EmployeeImageComponent implements OnInit {
   deleteImage(filename: string) {
     let pincode = this.data.pincode;
     let image = [filename];
+    this.loading = true
 
     this.uploadService
       .deleteImage(this.data.pincode, image)
@@ -94,6 +105,7 @@ export class EmployeeImageComponent implements OnInit {
           this.getImages();
         } else {
           this.openSnackBar(`Error: ${res.error}`, 'ERROR');
+          this.loading = false
         }
       });
   }
@@ -104,15 +116,18 @@ export class EmployeeImageComponent implements OnInit {
 
   deleteSelectedImages() {
     let pincode = this.data.pincode;
+    this.loading = true
 
     this.uploadService
       .deleteImage(this.data.pincode, this.photosForDeletion)
       .subscribe((res) => {
         if (res.success) {
           this.openSnackBar('Images deleted', 'DELETE');
+          this.loading = true;
           this.getImages();
         } else {
           this.openSnackBar(`Error: ${res.error}`, 'ERROR');
+          this.loading = false;
         }
       });
   }
@@ -124,6 +139,7 @@ export class EmployeeImageComponent implements OnInit {
   selectFile(event: any): void {
     if (event.target.files && event.target.files[0]) {
       const file: File = event.target.files[0];
+      this.files = event.target.files
       this.currentFile = file;
       this.fileName = this.currentFile.name;
     } else {
@@ -132,6 +148,7 @@ export class EmployeeImageComponent implements OnInit {
   }
 
   upload(): void {
+    this.loading = true
     let pincode = this.data.pincode;
     const postData = new FormData();
     postData.append('pincode', pincode);
@@ -139,16 +156,16 @@ export class EmployeeImageComponent implements OnInit {
     this.message = '';
 
     this.uploadService
-      .upload(this.currentFile, pincode)
+      .upload(this.files, pincode)
       .subscribe((res: UploadResponse) => {
         if (res.success) {
-          this.openSnackBar('Images deleted', 'DELETE');
-          this.getImages();
+          this.openSnackBar('Images added', 'INSERT');
+          this.hasImages()
         } else {
           this.openSnackBar(`Error: ${res.error}`, 'ERROR');
           this.progress = 0;
-
           this.currentFile = undefined;
+          this.loading = false
         }
       });
   }
