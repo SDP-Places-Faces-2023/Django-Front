@@ -1,3 +1,36 @@
-<p>
-  training works!
-</p>
+<div class="containter">
+  <div class="row">
+    <div class="col-3 d-flex flex-column align-items-center justify-content-center">
+      <button mat-raised-button color="primary" (click)="checkModelStatus()">Check Model Status</button>
+      <div>
+        Model status: {{modelStatus.status}} <br>
+        Time: {{modelStatus.timestamp}}
+      </div>
+      <button mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
+      <div>
+        <div class="d-flex flex-column">
+          <div class="train-history">
+            Loss history: <span *ngFor="let loss of trainHistory.history.loss">{{loss}}&nbsp;</span> <br>
+            Accuracy history: <span *ngFor="let loss of trainHistory.history.accuracy">{{loss}}&nbsp;</span> <br>
+            Validation loss history: <span *ngFor="let loss of trainHistory.history.val_loss">{{loss}}&nbsp;</span> <br>
+            Validation Accuracy history: <span *ngFor="let loss of trainHistory.history.val_accuracy">{{loss}}&nbsp;</span>
+          </div>
+
+          <div class="train-classes">
+            Classes: <span *ngFor="let class of trainHistory.classes">{{class}}&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+
+    </div>
+    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+      <button mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
+      <button mat-raised-button color="primary" (click)="stopCamera()">Stop camera</button>
+      <div>
+        camera started <br> camera stopped
+      </div>
+    </div>
+  </div>
+</div>
