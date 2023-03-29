@@ -53,11 +53,7 @@ export class TrainingComponent implements OnInit {
   }
 
   getFrames() {
-    this.httpService
-      .getData('/model_api_connection/start_subscription/', {})
-      .subscribe((res) => {
-        this.frameInfo = res;
-      });
+    
   }
 
   sendRequests() {
@@ -73,7 +69,11 @@ export class TrainingComponent implements OnInit {
       )
       .subscribe(() => {
         for (let i = 0; i < requestsPerInterval; i++) {
-          this.getFrames();
+          this.httpService
+          .getData('/model_api_connection/get_frame/', {})
+          .subscribe((res) => {
+            this.frameInfo = res;
+          });
           if (numRequests >= maxRequests) {
             break;
           }
