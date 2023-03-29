@@ -40,6 +40,7 @@ export class TrainingComponent implements OnInit {
       .subscribe((res) => {
         this.cameraStatus = res;
         this.cam = true;
+        this.sendRequests()
       });
   }
   stopCamera() {
