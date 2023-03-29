@@ -15,14 +15,14 @@ export class TrainingComponent implements OnInit {
 
   checkModelStatus() {
     this.httpService
-      .getData('/model_api_connection/list_employees/', {})
+      .getData('/model_api_connection/training_status/', {})
       .subscribe((res) => {
         this.modelStatus = res;
       });
   }
   startTrain() {
     this.httpService
-      .getData('/model_api_connection/list_employees/', {})
+      .getData('/model_api_connection/train_model/', {})
       .subscribe((res) => {
         this.trainHistory = res;
       });
