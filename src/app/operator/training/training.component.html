@@ -1,12 +1,12 @@
 <div class="containter mt-3">
   <div class="row">
     <div class="col-3 d-flex flex-column align-items-center justify-content-center">
-      <button mat-raised-button color="primary" (click)="checkModelStatus()">Check Model Status</button>
+      <button [disabled]="!serverStatus.django || !serverStatus.fastapi" mat-raised-button color="primary" (click)="checkModelStatus()">Check Model Status</button>
       <div class="m-3" *ngIf="modelStatus">
         Model status: {{modelStatus.status}} <br>
         Time: {{modelStatus.timestamp}}
       </div>
-      <button class="mt-3" mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
+      <button [disabled]="!serverStatus.django || !serverStatus.fastapi" class="mt-3" mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
       <div *ngIf="trainHistory" class="mt-3">
         <div class="d-flex flex-column">
           <!-- <div class="train-history">
@@ -39,8 +39,8 @@
       </div>
     </div>
     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-      <button class="mt-3" mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
-      <button class="mt-3" mat-raised-button color="primary" (click)="stopCamera()">Stop camera</button>
+      <button [disabled]="!serverStatus.django || !serverStatus.fastapi" class="mt-3" mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
+      <button [disabled]="!serverStatus.django || !serverStatus.fastapi" class="mt-3" mat-raised-button color="primary" (click)="stopCamera()">Stop camera</button>
       <div *ngIf="cameraStatus" class="mt-3">
         {{cameraStatus.message}}
       </div>

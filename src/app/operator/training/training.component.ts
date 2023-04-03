@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from 'src/app/http-service.service';
 import { interval } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
+import { ServerStatusService } from '../../server-status.service';
 
 @Component({
   selector: 'app-training',
@@ -9,7 +10,10 @@ import { take, takeWhile } from 'rxjs/operators';
   styleUrls: ['./training.component.scss'],
 })
 export class TrainingComponent implements OnInit {
-  constructor(private httpService: HttpServiceService) {}
+  constructor(
+    private httpService: HttpServiceService,
+    public serverStatus: ServerStatusService
+    ) {}
   modelStatus: any;
   trainHistory: any;
   cameraStatus: any;

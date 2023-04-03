@@ -6,9 +6,9 @@
 </mat-tab-group> -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
-  <a class="navbar-brand"><mat-icon>donut_small</mat-icon> - {{account}}</a>
+    <a class="navbar-brand"><mat-icon>donut_small</mat-icon> - {{account}}</a>
 
-  <div id="navbarSupportedContent">
+  <div id="navbarSupportedContent" *ngIf="serverStatus.django && serverStatus.fastapi">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active mr-3">
         <a class="nav-link" (click)="onChangeAcc()" href="#">Change account<span class="sr-only">(current)</span></a>
@@ -33,5 +33,11 @@
     </ul>
   </div>
 
-  <a class="navbar-brand"><mat-icon>donut_small</mat-icon></a>
+  <div style="margin-top: 15px;">
+    <p style="font-size: 16px; margin-right: 15px;">
+      Django status: <span *ngIf="django" class="online"></span>  <span *ngIf="!django" class="offline"></span> <br>
+      FastAPI status: <span *ngIf="fastapi" class="online"></span> <span *ngIf="!fastapi" class="offline"></span> <br>
+      Postgre Server status: <span *ngIf="database" class="online"></span> <span *ngIf="!database" class="offline"></span>
+    </p>
+  </div>
 </nav>

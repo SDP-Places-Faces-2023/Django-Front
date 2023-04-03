@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EmployeeInsertComponent } from './employee-insert/employee-insert.component';
 import { EmployeeImageComponent } from './employee-image/employee-image.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ServerStatusService } from '../../server-status.service';
+
 
 interface Employee {
   id: string;
@@ -30,6 +32,7 @@ export class EmployeesComponent implements OnInit {
     'department',
     'actions',
   ];
+  django: boolean;
   dataSource = new MatTableDataSource<Employee>();
   loading: boolean;
   employeeList: any;
@@ -37,7 +40,8 @@ export class EmployeesComponent implements OnInit {
   constructor(
     private httpService: HttpServiceService,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public serverStatus: ServerStatusService
   ) {}
 
   ngOnInit() {
