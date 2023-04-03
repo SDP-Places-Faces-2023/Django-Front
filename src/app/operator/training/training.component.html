@@ -23,19 +23,19 @@
       </div>
     </div>
     <div class="col-6 d-flex flex-row">
-      <div *ngIf="frameInfo">
-        <img style="width: 209px; height: 209px;"
+      <div class="mr-3" *ngIf="frameInfo">
+        <img style="width: 400px; height: 300px;"
               class="card-img-top"
               [src]="'data:image/jpeg;base64,' + frameInfo.current_frame"
             />
       </div>
       <div *ngIf="frameInfo">
-        <img style="width: 104px; height: 104px;"
+        <img style="width: 200; height: 300px;"
               class="card-img-top"
               [src]="'data:image/jpeg;base64,' + frameInfo.last_recognized_frame"
             />
             <p class="mt-3">Employee Id: {{frameInfo.last_employee_id}}</p>
-            <p class="mt-3">Employee Id: {{frameInfo.timestamp}}</p>
+            <p class="mt-3">Timestamp: {{frameInfo.timestamp}}</p>
       </div>
     </div>
     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
