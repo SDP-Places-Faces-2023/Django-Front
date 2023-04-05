@@ -13,7 +13,7 @@
       <li class="nav-item active mr-3">
         <a class="nav-link" (click)="onChangeAcc()" href="#">Change account<span class="sr-only">(current)</span></a>
       </li>
-      <ng-container *ngIf="account == 'HumanResources'">
+      <ng-container>
         <li class="nav-item active mr-3">
           <a class="nav-link" [routerLink]="['/hr/employees']" routerLinkActive="active">Employee list<span class="sr-only">(current)</span></a>
         </li>
@@ -22,7 +22,7 @@
         </li>
       </ng-container>
 
-      <ng-container *ngIf="account == 'Operator'">
+      <ng-container>
         <li class="nav-item active mr-3">
           <a class="nav-link" [routerLink]="['/operator/training']" routerLinkActive="active">Training<span class="sr-only">(current)</span></a>
         </li>

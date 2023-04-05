@@ -5,8 +5,9 @@ import { HttpServiceService, StatusResponse } from '../http-service.service';
 import { ServerStatusService } from '../server-status.service';
 import { BASE_URL } from '../app.globals'
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { interval } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { interval, throwError } from 'rxjs';
+import { switchMap, retryWhen, delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -28,15 +29,21 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private httpService: HttpServiceService,
     private serverStatus: ServerStatusService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
     this.account = window.localStorage.getItem('account')
     let url = '/model_api_connection/health_check/'
-    const source = interval(10000); // change the interval time as per your requirement
+    const source = interval(5000); // change the interval time as per your requirement
     source.pipe(
-      switchMap(() => this.httpService.getData(url, {}))
+      switchMap(() => this.http.get(url).pipe(
+        retryWhen(errors => errors.pipe(
+          delay(5000), // wait for 5 seconds before retrying
+          switchMap(() => throwError('Retrying...')) // retry the request
+        ))
+      ))
     ).subscribe((res: StatusResponse)  =>  {
       if (res) {
         // console.log(res);
