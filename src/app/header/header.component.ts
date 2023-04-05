@@ -35,144 +35,144 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.account = window.localStorage.getItem('account')
-    let url = 'http://127.0.0.1:9000/model_api_connection/health_check/'
-    const source = interval(5000); // change the interval time as per your requirement
-    source.pipe(
-      switchMap(() => this.http.get(url).pipe(
-        retryWhen(errors => errors.pipe(
-          delay(5000), // wait for 5 seconds before retrying
-          switchMap(() => throwError('Retrying...')) // retry the request
-        ))
-      ))
-    ).subscribe((res: StatusResponse)  =>  {
-      if (res) {
-        // console.log(res);
+    // let url = 'http://127.0.0.1:9000/model_api_connection/health_check/'
+    // const source = interval(5000); // change the interval time as per your requirement
+    // source.pipe(
+    //   switchMap(() => this.http.get(url).pipe(
+    //     retryWhen(errors => errors.pipe(
+    //       delay(5000), // wait for 5 seconds before retrying
+    //       switchMap(() => throwError('Retrying...')) // retry the request
+    //     ))
+    //   ))
+    // ).subscribe((res: StatusResponse)  =>  {
+    //   if (res) {
+    //     // console.log(res);
 
-        this.serverStatus.django = res.django_status ? true : false;
-        this.serverStatus.fastapi = res.fastapi_status ? true : false;
-        this.serverStatus.database = res.database_status ? true : false;
-        this.django = res.django_status ? true : false;
-        this.fastapi = res.fastapi_status ? true : false;
-        this.database = res.database_status ? true : false;
+    //     this.serverStatus.django = res.django_status ? true : false;
+    //     this.serverStatus.fastapi = res.fastapi_status ? true : false;
+    //     this.serverStatus.database = res.database_status ? true : false;
+    //     this.django = res.django_status ? true : false;
+    //     this.fastapi = res.fastapi_status ? true : false;
+    //     this.database = res.database_status ? true : false;
 
 
-        // DJANGO
-        if(!this.django && !this.djangoNotif) {
-          this.openSnackBar('Django offline', 'CONNECTION');
-          this.djangoNotif = true
-        } 
+    //     // DJANGO
+    //     if(!this.django && !this.djangoNotif) {
+    //       this.openSnackBar('Django offline', 'CONNECTION');
+    //       this.djangoNotif = true
+    //     } 
         
-        if(this.django && this.djangoNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.djangoNotif = false
-        }
-
-        
-        // FASTAPI
-        if(!this.fastapi && !this.fastapiNotif) {
-          this.openSnackBar('FastAPI offline', 'CONNECTION');
-          this.fastapiNotif = true
-        } 
-        
-        if(this.fastapi && this.fastapiNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.fastapiNotif = false
-        }
-        
-
-        // DATABASE
-        if(!this.database && !this.databaseNotif) {
-          this.openSnackBar('Database offline', 'CONNECTION');
-          this.databaseNotif = true
-        }
-        
-        if(this.database && this.databaseNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.databaseNotif = false
-        }
-
-        // console.log(this.serverStatus.django);
-        // console.log(this.serverStatus.fastapi);
-        // console.log(this.serverStatus.database);
-      } else {
-        
-        this.serverStatus.django = false
-        this.serverStatus.fastapi = false
-        this.serverStatus.database = false
-        this.django = false
-        this.fastapi = false
-        this.database = false
-
-        // DJANGO
-        if(!this.django && !this.djangoNotif) {
-          this.openSnackBar('Django offline', 'CONNECTION');
-          this.djangoNotif = true
-        } 
-        
-        if(this.django && this.djangoNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.djangoNotif = false
-        }
+    //     if(this.django && this.djangoNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.djangoNotif = false
+    //     }
 
         
-        // FASTAPI
-        if(!this.fastapi && !this.fastapiNotif) {
-          this.openSnackBar('FastAPI offline', 'CONNECTION');
-          this.fastapiNotif = true
-        } 
+    //     // FASTAPI
+    //     if(!this.fastapi && !this.fastapiNotif) {
+    //       this.openSnackBar('FastAPI offline', 'CONNECTION');
+    //       this.fastapiNotif = true
+    //     } 
         
-        if(this.fastapi && this.fastapiNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.fastapiNotif = false
-        }
+    //     if(this.fastapi && this.fastapiNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.fastapiNotif = false
+    //     }
         
 
-        // DATABASE
-        if(!this.database && !this.databaseNotif) {
-          this.openSnackBar('Database offline', 'CONNECTION');
-          this.database = true
-        }
+    //     // DATABASE
+    //     if(!this.database && !this.databaseNotif) {
+    //       this.openSnackBar('Database offline', 'CONNECTION');
+    //       this.databaseNotif = true
+    //     }
         
-        if(this.database && this.databaseNotif) {
-          this.openSnackBar('FastAPI online', 'CONNECTION');
-          this.databaseNotif = false
-        }
-      }
-    },
-    error => {
-      this.serverStatus.django = false
-        this.serverStatus.fastapi = false
-        this.serverStatus.database = false
-        this.django = false
-        this.fastapi = false
-        this.database = false
+    //     if(this.database && this.databaseNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.databaseNotif = false
+    //     }
 
-        // DJANGO
-        if(!this.django && !this.djangoNotif) {
-          this.openSnackBar('Django offline', 'CONNECTION');
-          this.djangoNotif = true
-        }
+    //     // console.log(this.serverStatus.django);
+    //     // console.log(this.serverStatus.fastapi);
+    //     // console.log(this.serverStatus.database);
+    //   } else {
+        
+    //     this.serverStatus.django = false
+    //     this.serverStatus.fastapi = false
+    //     this.serverStatus.database = false
+    //     this.django = false
+    //     this.fastapi = false
+    //     this.database = false
+
+    //     // DJANGO
+    //     if(!this.django && !this.djangoNotif) {
+    //       this.openSnackBar('Django offline', 'CONNECTION');
+    //       this.djangoNotif = true
+    //     } 
+        
+    //     if(this.django && this.djangoNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.djangoNotif = false
+    //     }
 
         
-        // FASTAPI
-        if(!this.fastapi && !this.fastapiNotif) {
-          this.openSnackBar('FastAPI offline', 'CONNECTION');
-          this.fastapiNotif = true
-        }
-
-        // DATABASE
-        if(!this.database && !this.databaseNotif) {
-          this.openSnackBar('Database offline', 'CONNECTION');
-          this.databaseNotif = true
-        }
+    //     // FASTAPI
+    //     if(!this.fastapi && !this.fastapiNotif) {
+    //       this.openSnackBar('FastAPI offline', 'CONNECTION');
+    //       this.fastapiNotif = true
+    //     } 
         
-    })
+    //     if(this.fastapi && this.fastapiNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.fastapiNotif = false
+    //     }
+        
+
+    //     // DATABASE
+    //     if(!this.database && !this.databaseNotif) {
+    //       this.openSnackBar('Database offline', 'CONNECTION');
+    //       this.database = true
+    //     }
+        
+    //     if(this.database && this.databaseNotif) {
+    //       this.openSnackBar('FastAPI online', 'CONNECTION');
+    //       this.databaseNotif = false
+    //     }
+    //   }
+    // },
+    // error => {
+    //   this.serverStatus.django = false
+    //     this.serverStatus.fastapi = false
+    //     this.serverStatus.database = false
+    //     this.django = false
+    //     this.fastapi = false
+    //     this.database = false
+
+    //     // DJANGO
+    //     if(!this.django && !this.djangoNotif) {
+    //       this.openSnackBar('Django offline', 'CONNECTION');
+    //       this.djangoNotif = true
+    //     }
+
+        
+    //     // FASTAPI
+    //     if(!this.fastapi && !this.fastapiNotif) {
+    //       this.openSnackBar('FastAPI offline', 'CONNECTION');
+    //       this.fastapiNotif = true
+    //     }
+
+    //     // DATABASE
+    //     if(!this.database && !this.databaseNotif) {
+    //       this.openSnackBar('Database offline', 'CONNECTION');
+    //       this.databaseNotif = true
+    //     }
+        
+    // })
 
 
-    // this.checkServersStatus();
-    // setInterval(() => {
-    //   this.checkServersStatus();
-    // }, 5000);
+    this.checkServersStatus();
+    setInterval(() => {
+      this.checkServersStatus();
+    }, 7000);
   }
 
   onChangeAcc() {
