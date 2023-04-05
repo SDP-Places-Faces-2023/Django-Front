@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.account = window.localStorage.getItem('account')
-    let url = '/model_api_connection/health_check/'
+    let url = 'http://127.0.0.1:9000/model_api_connection/health_check/'
     const source = interval(5000); // change the interval time as per your requirement
     source.pipe(
       switchMap(() => this.http.get(url).pipe(
