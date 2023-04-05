@@ -7,7 +7,7 @@ import { AttendanceComponent } from "./hr/attendance/attendance.component";
 import { TrainingComponent } from "./operator/training/training.component";
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'operator', pathMatch: 'full' },
+  { path: '', redirectTo: 'hr', pathMatch: 'full' },
   { path: 'hr', component: HrComponent, children: [
     { path: '', redirectTo: 'employees', pathMatch: 'full' },
     { path: 'employees', component: EmployeesComponent },

@@ -1,4 +1,4 @@
-<button mat-raised-button (click)="dialogRef.close()">Back</button>
+<button *ngIf="!loading"  mat-raised-button (click)="dialogRef.close()">Back</button>
 <div style="width: 100wh">
   <!-- <mat-toolbar *ngIf="currentFile" class="progress-bar">
     <mat-progress-bar  color="accent" [value]="progress"></mat-progress-bar>
