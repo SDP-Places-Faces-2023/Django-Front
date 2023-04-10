@@ -39,8 +39,13 @@
       </div>
     </div>
     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-      <button *ngIf="!cam" [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database" class="mt-3" mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
+      <button *ngIf="!cam" [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database || !modelSuccess" class="mt-3" mat-raised-button color="primary" (click)="startCamera()">Start camera</button>
       <button *ngIf="cam" [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database" class="mt-3" mat-raised-button color="primary" (click)="stopCamera()">Stop camera</button>
+      <div *ngIf="!modelSuccess">
+        <p>
+          No trained model: please, train a model!
+        </p>
+      </div>
       <div *ngIf="cameraStatus" class="mt-3">
         {{cameraStatus.message}}
       </div>

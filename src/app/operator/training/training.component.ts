@@ -21,16 +21,19 @@ export class TrainingComponent implements OnInit {
   cameraStatus: any;
   frameInfo: any;
   cam: boolean = false;
-  
+  modelSuccess: boolean = false;
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkModelStatus()
+  }
 
   checkModelStatus() {
     this.httpService
       .getData('/model_api_connection/training_status/', {})
       .subscribe((res) => {
         this.modelStatus = res;
+        this.modelSuccess = this.modelStatus.success;
       });
   }
   startTrain() {
