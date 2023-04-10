@@ -41,9 +41,9 @@ export class AttendanceFilterComponent implements OnInit {
 
 
   confirm() {
-    this.filter.date = this.datePipe.transform(this.filter.date, 'yyyy-MM-dd')
-    this.filter.start_date = this.datePipe.transform(this.filter.start_date, 'yyyy-MM-dd')
-    this.filter.end_date = this.datePipe.transform(this.filter.end_date, 'yyyy-MM-dd')
+    this.filter.date = this.filter.date ?  this.datePipe.transform(this.filter.date, 'yyyy-MM-dd') : "";
+    this.filter.start_date =  this.filter.start_date ? this.datePipe.transform(this.filter.start_date, 'yyyy-MM-dd') : "";
+    this.filter.end_date =  this.filter.end_date ? this.datePipe.transform(this.filter.end_date, 'yyyy-MM-dd') : "";
     this.dialogRef.close({ data: this.filter })
   }
 
