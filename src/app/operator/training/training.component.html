@@ -4,7 +4,10 @@
       <button [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database" mat-raised-button color="primary" (click)="checkModelStatus()">Check Model Status</button>
       <div class="m-3" *ngIf="modelStatus">
         Model status: {{modelStatus.status}} <br>
-        Time: {{modelStatus.timestamp}}
+        <ng-container *ngIf="modelSuccess">
+          Time: {{modelStatus.timestamp}}
+        </ng-container>
+        
       </div>
       <button [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database" class="mt-3" mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
       <div *ngIf="trainHistory" class="mt-3">
