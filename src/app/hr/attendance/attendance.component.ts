@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpServiceService } from 'src/app/http-service.service';
+import { HttpServiceService } from 'src/app/shared/http-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 

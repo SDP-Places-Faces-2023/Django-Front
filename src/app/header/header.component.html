@@ -1,11 +1,4 @@
-<!-- <mat-tab-group class="my-tab-group">
-  <mat-tab style="width: 50%" label="Employee List"
-    ><button mat-button [routerLink]="['/employees']" routerLinkActive="active" ></button></mat-tab>
-  <mat-tab style="width: 50%" label="Attendance List">
-    <button mat-button  ></button></mat-tab>
-</mat-tab-group> -->
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
     <a class="navbar-brand"><mat-icon>donut_small</mat-icon> - {{account}}</a>
 
   <div id="navbarSupportedContent" *ngIf="serverStatus.django && serverStatus.fastapi">
@@ -38,6 +31,107 @@
       Django status: <span *ngIf="django" class="online"></span>  <span *ngIf="!django" class="offline"></span> <br>
       FastAPI status: <span *ngIf="fastapi" class="online"></span> <span *ngIf="!fastapi" class="offline"></span> <br>
       Postgre Server status: <span *ngIf="database" class="online"></span> <span *ngIf="!database" class="offline"></span>
+    </p>
+  </div>
+</nav> -->
+
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="active"><mat-icon>donut_small</mat-icon></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['/home']" routerLinkActive="active">Home</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li> -->
+        <li mdbDropdown class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink"
+            role="button"
+            mdbDropdownToggle
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Human Resources
+          </a>
+          <ul
+            class="dropdown-menu"
+            mdbDropdownMenu
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/hr/employees']"
+                routerLinkActive="active"
+                >Employee list</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/hr/attendance']"
+                routerLinkActive="active"
+                >Attendance list</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Operator
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/operator/training']"
+                routerLinkActive="active"
+                >Training</a
+              >
+            </li>
+          </ul>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li> -->
+      </ul>
+      <!-- <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form> -->
+    </div>
+  </div>
+
+  <div style="margin-top: 15px">
+    <p style="font-size: 16px; margin-right: 15px">
+      Django status: <span *ngIf="django" class="online"></span>
+      <span *ngIf="!django" class="offline"></span> <br />
+      FastAPI status: <span *ngIf="fastapi" class="online"></span>
+      <span *ngIf="!fastapi" class="offline"></span> <br />
+      Postgre Server status: <span *ngIf="database" class="online"></span>
+      <span *ngIf="!database" class="offline"></span>
     </p>
   </div>
 </nav>

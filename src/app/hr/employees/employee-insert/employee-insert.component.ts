@@ -7,7 +7,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { finalize, map, delay } from 'rxjs/operators';
-import { HttpServiceService, ApiResponse } from 'src/app/http-service.service';
+import { HttpServiceService, ApiResponse } from 'src/app/shared/http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

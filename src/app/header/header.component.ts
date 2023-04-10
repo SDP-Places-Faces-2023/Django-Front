@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { HttpServiceService, StatusResponse } from '../http-service.service';
-import { ServerStatusService } from '../server-status.service';
+import { HttpServiceService, StatusResponse } from '../shared/http-service.service';
+import { ServerStatusService } from '../shared/server-status.service';
 import { BASE_URL } from '../app.globals'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { interval, throwError } from 'rxjs';

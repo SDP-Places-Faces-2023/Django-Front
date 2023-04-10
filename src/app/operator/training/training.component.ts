@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from 'src/app/http-service.service';
+import { HttpServiceService } from 'src/app/shared/http-service.service';
 import { interval } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { ServerStatusService } from '../../server-status.service';
+import { ServerStatusService } from '../../shared/server-status.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-training',
@@ -12,13 +13,14 @@ import { ServerStatusService } from '../../server-status.service';
 export class TrainingComponent implements OnInit {
   constructor(
     private httpService: HttpServiceService,
-    public serverStatus: ServerStatusService
+    public serverStatus: ServerStatusService,
+    public _snackBar: MatSnackBar
     ) {}
   modelStatus: any;
   trainHistory: any;
   cameraStatus: any;
   frameInfo: any;
-  cam: boolean = false
+  cam: boolean = false;
   
 
 
@@ -42,17 +44,26 @@ export class TrainingComponent implements OnInit {
     this.httpService
       .getData('/model_api_connection/start_subscription/', {})
       .subscribe((res) => {
-        this.cameraStatus = res;
-        this.cam = true;
-        this.sendRequests()
+        if(res.status == "success") {
+          this.cameraStatus = res;
+          this.cam = true;
+          this.sendRequests()
+        } else {
+          this.openSnackBar("Camera cannot be opened", "ERROR")
+        }
       });
   }
   stopCamera() {
     this.httpService
       .getData('/model_api_connection/stop_subscription/', {})
       .subscribe((res) => {
-        this.cameraStatus = res;
-        this.cam = false;
+        if(res.status == "success") {
+          this.cameraStatus = res;
+          this.cam = false;
+        } else {
+          this.openSnackBar("Something went wrong", "ERROR")
+          this.cam = false;
+        }
       });
   }
 
@@ -83,5 +94,11 @@ export class TrainingComponent implements OnInit {
           }
         }
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

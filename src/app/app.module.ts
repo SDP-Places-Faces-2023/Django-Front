@@ -30,6 +30,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { OperatorComponent } from './operator/operator.component';
 import { HrComponent } from './hr/hr.component';
 import { TrainingComponent } from './operator/training/training.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { TrainingComponent } from './operator/training/training.component';
     OperatorComponent,
     HrComponent,
     TrainingComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,3 +18,10 @@
     width: 15px;
     background-color: rgb(255, 45, 45);
   }
+
+  .dropdown-item {
+    color: #000000;
+  }
+  .dropdown-item.active {
+    color: gray;
+  }

@@ -5,9 +5,11 @@ import { OperatorComponent } from "./operator/operator.component";
 import { EmployeesComponent } from "./hr/employees/employees.component";
 import { AttendanceComponent } from "./hr/attendance/attendance.component";
 import { TrainingComponent } from "./operator/training/training.component";
+import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'hr', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path:'home', component: HomeComponent},
   { path: 'hr', component: HrComponent, children: [
     { path: '', redirectTo: 'employees', pathMatch: 'full' },
     { path: 'employees', component: EmployeesComponent },

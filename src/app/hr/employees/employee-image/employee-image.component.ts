@@ -7,13 +7,13 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { finalize, map, delay } from 'rxjs/operators';
-import { HttpServiceService, ApiResponse } from 'src/app/http-service.service';
+import { HttpServiceService, ApiResponse } from 'src/app/shared/http-service.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import {
   FileUploadService,
   ImageResponse,
   UploadResponse,
-} from 'src/app/file-upload.service';
+} from 'src/app/shared/file-upload.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';

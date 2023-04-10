@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BASE_URL } from './app.globals';
+import { BASE_URL } from '../app.globals';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
