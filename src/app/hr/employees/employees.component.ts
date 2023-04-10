@@ -101,7 +101,10 @@ export class EmployeesComponent implements OnInit {
   }
 
   onOpenFilter() {
-    const dialogRef = this.dialog.open(EmployeeFilterComponent);
+    const dialogRef = this.dialog.open(EmployeeFilterComponent, {
+      height: '370px',
+      width: '400px',
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
