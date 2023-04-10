@@ -6,6 +6,7 @@ import { EmployeeInsertComponent } from './employee-insert/employee-insert.compo
 import { EmployeeImageComponent } from './employee-image/employee-image.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ServerStatusService } from '../../shared/server-status.service';
+import { EmployeeFilterComponent } from './employee-filter/employee-filter.component';
 
 
 interface Employee {
@@ -36,6 +37,7 @@ export class EmployeesComponent implements OnInit {
   dataSource = new MatTableDataSource<Employee>();
   loading: boolean;
   employeeList: any;
+  filter: any;
 
   constructor(
     private httpService: HttpServiceService,
@@ -52,6 +54,17 @@ export class EmployeesComponent implements OnInit {
     this.loading = true;
     this.httpService
       .getData('/model_api_connection/list_employees/', {})
+      .subscribe((res) => {
+        this.employeeList = res;
+        this.updateDataSource();
+        this.loading = false;
+      });
+  }
+
+  getEmployees2() {
+    this.loading = true;
+    this.httpService
+      .postData3('/model_api_connection/list_employees/', this.filter)
       .subscribe((res) => {
         this.employeeList = res;
         this.updateDataSource();
@@ -84,6 +97,16 @@ export class EmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.getEmployees()
+    });
+  }
+
+  onOpenFilter() {
+    const dialogRef = this.dialog.open(EmployeeFilterComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.filter = result.data
+      this.getEmployees2()
     });
   }
 

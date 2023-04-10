@@ -31,6 +31,7 @@ import { OperatorComponent } from './operator/operator.component';
 import { HrComponent } from './hr/hr.component';
 import { TrainingComponent } from './operator/training/training.component';
 import { HomeComponent } from './home/home.component';
+import { EmployeeFilterComponent } from './hr/employees/employee-filter/employee-filter.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HomeComponent } from './home/home.component';
     HrComponent,
     TrainingComponent,
     HomeComponent,
+    EmployeeFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +76,7 @@ import { HomeComponent } from './home/home.component';
     EmployeeInsertComponent,
     EmployeeImageComponent,
     ConfirmationDialogComponent,
+    EmployeeFilterComponent
   ],
 })
 export class AppModule {}
