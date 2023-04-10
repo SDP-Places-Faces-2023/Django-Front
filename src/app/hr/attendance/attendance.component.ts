@@ -61,7 +61,7 @@ export class AttendanceComponent implements OnInit {
   getAttendanceList2() {
     this.loading = true;
     this.httpService
-      .postData3('/model_api_connection/list_attendance/', this.filter)
+      .postDataAttendance('/model_api_connection/list_attendance/', this.filter)
       .subscribe((res) => {
         this.attendanceList = res;
         this.updateDataSource();

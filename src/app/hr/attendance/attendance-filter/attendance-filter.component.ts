@@ -9,6 +9,7 @@ import {
 // import { finalize, map, delay } from 'rxjs/operators';
 import { HttpServiceService, ApiResponse } from 'src/app/shared/http-service.service';
 // import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-attendance-filter',
@@ -31,6 +32,7 @@ export class AttendanceFilterComponent implements OnInit {
     private dialogRef: MatDialogRef<AttendanceFilterComponent>,
     private dialog: MatDialog,
     private httpService: HttpServiceService,
+    private datePipe: DatePipe
     // private _snackBar: MatSnackBar
   ) { }
 
@@ -39,6 +41,9 @@ export class AttendanceFilterComponent implements OnInit {
 
 
   confirm() {
+    this.filter.date = this.datePipe.transform(this.filter.date, 'yyyy-MM-dd')
+    this.filter.start_date = this.datePipe.transform(this.filter.start_date, 'yyyy-MM-dd')
+    this.filter.end_date = this.datePipe.transform(this.filter.end_date, 'yyyy-MM-dd')
     this.dialogRef.close({ data: this.filter })
   }
 

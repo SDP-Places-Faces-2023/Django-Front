@@ -64,7 +64,7 @@ export class EmployeesComponent implements OnInit {
   getEmployees2() {
     this.loading = true;
     this.httpService
-      .postData3('/model_api_connection/list_employees/', this.filter)
+      .postDataEmployee('/model_api_connection/list_employees/', this.filter)
       .subscribe((res) => {
         this.employeeList = res;
         this.updateDataSource();
