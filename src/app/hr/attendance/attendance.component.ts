@@ -3,6 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpServiceService } from 'src/app/shared/http-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ServerStatusService } from 'src/app/shared/server-status.service';
+import { AttendanceFilterComponent } from './attendance-filter/attendance-filter.component';
 
 interface Attendance {
   id: string;
@@ -30,10 +33,14 @@ export class AttendanceComponent implements OnInit {
   dataSource = new MatTableDataSource<Attendance>();
   loading: boolean;
   attendanceList: any;
+  filter: any;
 
   constructor(
     private httpService: HttpServiceService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    public serverStatus: ServerStatusService
   ) { }
 
   ngOnInit() {
@@ -49,6 +56,30 @@ export class AttendanceComponent implements OnInit {
         this.updateDataSource();
         this.loading = false;
       });
+  }
+
+  getAttendanceList2() {
+    this.loading = true;
+    this.httpService
+      .postData3('/model_api_connection/list_attendance/', this.filter)
+      .subscribe((res) => {
+        this.attendanceList = res;
+        this.updateDataSource();
+        this.loading = false;
+      });
+  }
+
+  onOpenFilter() {
+    const dialogRef = this.dialog.open(AttendanceFilterComponent, {
+      height: '370px',
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.filter = result.data
+      this.getAttendanceList2()
+    });
   }
 
   updateDataSource() {

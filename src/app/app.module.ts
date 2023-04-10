@@ -32,6 +32,7 @@ import { HrComponent } from './hr/hr.component';
 import { TrainingComponent } from './operator/training/training.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeeFilterComponent } from './hr/employees/employee-filter/employee-filter.component';
+import { AttendanceFilterComponent } from './hr/attendance/attendance-filter/attendance-filter.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EmployeeFilterComponent } from './hr/employees/employee-filter/employee
     HrComponent,
     TrainingComponent,
     HomeComponent,
-    EmployeeFilterComponent
+    EmployeeFilterComponent,
+    AttendanceFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { EmployeeFilterComponent } from './hr/employees/employee-filter/employee
     EmployeeInsertComponent,
     EmployeeImageComponent,
     ConfirmationDialogComponent,
-    EmployeeFilterComponent
+    EmployeeFilterComponent,
+    AttendanceFilterComponent
   ],
 })
 export class AppModule {}
