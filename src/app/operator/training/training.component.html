@@ -9,8 +9,11 @@
         </ng-container>
         
       </div>
-      <button [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database" class="mt-3" mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
-      <div *ngIf="trainHistory" class="mt-3">
+      <button [disabled]="!serverStatus.django || !serverStatus.fastapi || !serverStatus.database || loading" class="mt-3" mat-raised-button color="primary" (click)="startTrain()">Train Model</button>
+      <div *ngIf="loading" class="mt-3">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
+      <div *ngIf="trainStatus" class="mt-3">
         <div class="d-flex flex-column">
           <!-- <div class="train-history">
             Loss history: <span *ngFor="let loss of trainHistory.history.loss">{{loss}}&nbsp;</span> <br>

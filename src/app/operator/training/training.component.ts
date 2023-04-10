@@ -22,6 +22,8 @@ export class TrainingComponent implements OnInit {
   frameInfo: any;
   cam: boolean = false;
   modelSuccess: boolean = false;
+  trainStatus: boolean = false;
+  loading: boolean = false;
 
 
   ngOnInit() {
@@ -37,10 +39,15 @@ export class TrainingComponent implements OnInit {
       });
   }
   startTrain() {
+    this.loading = true;
     this.httpService
       .postData2('/model_api_connection/train_model/')
       .subscribe((res) => {
         this.trainHistory = res;
+        if(res.success) {
+          this.trainStatus = res.success;
+        }
+        this.loading = false
       });
   }
   startCamera() {
