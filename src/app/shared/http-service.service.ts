@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { BASE_URL } from '../app.globals';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -57,7 +59,7 @@ export class HttpServiceService {
       );
   }
 
-  postData3(api: string, data: any): Observable<any> {
+  postDataEmployee(api: string, data: any): Observable<any> {
 
     let url = BASE_URL + api
     const formData: FormData = new FormData();
@@ -79,7 +81,34 @@ export class HttpServiceService {
       );
   }
 
+  postDataAttendance(api: string, data: any): Observable<any> {
+
+    let url = BASE_URL + api
+    const formData: FormData = new FormData();
+    formData.append('name', data.name);
+    formData.append('surname', data.surname);
+    formData.append('pincode', data.pincode);
+    formData.append('department', data.department);
+    formData.append('date', data.date);
+    formData.append('start_date', data.start_date);
+    formData.append('end_date', data.end_date);
+
+    // const formData: FormData = new FormData();
+    formData.append
+    
+      return this.http.post<any>(url,formData).pipe(
+        catchError(error => {
+          // Handle the error here, e.g. log it to the console
+          console.error('An error occurred:', error);
+          // Return an observable with a user-friendly error message
+          return throwError('Something went wrong, please try again later.');
+        })
+      );
+  }
+
 }
+
+
 
 export interface ApiResponse {
   success: boolean;

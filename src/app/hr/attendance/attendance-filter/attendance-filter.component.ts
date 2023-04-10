@@ -20,7 +20,10 @@ export class AttendanceFilterComponent implements OnInit {
     name: "",
     surname: "",
     department: "",
-    pincode: ""
+    pincode: "",
+    date: "",
+    start_date: "",
+    end_date: ""
   }
 
   constructor(

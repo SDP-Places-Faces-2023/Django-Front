@@ -71,7 +71,7 @@ export class AttendanceComponent implements OnInit {
 
   onOpenFilter() {
     const dialogRef = this.dialog.open(AttendanceFilterComponent, {
-      height: '370px',
+      height: '450px',
       width: '400px',
     });
 
