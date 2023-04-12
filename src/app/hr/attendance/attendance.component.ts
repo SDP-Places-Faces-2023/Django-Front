@@ -52,7 +52,7 @@ export class AttendanceComponent implements OnInit {
     this.httpService
       .getData('/model_api_connection/list_attendance/', {})
       .subscribe((res) => {
-        this.attendanceList = res;
+        this.attendanceList = res.response;
         this.updateDataSource();
         this.loading = false;
       });
@@ -63,7 +63,7 @@ export class AttendanceComponent implements OnInit {
     this.httpService
       .postDataAttendance('/model_api_connection/list_attendance/', this.filter)
       .subscribe((res) => {
-        this.attendanceList = res;
+        this.attendanceList = res.response;
         this.updateDataSource();
         this.loading = false;
       });

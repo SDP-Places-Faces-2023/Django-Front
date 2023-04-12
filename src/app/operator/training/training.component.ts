@@ -56,8 +56,8 @@ export class TrainingComponent implements OnInit {
     this.httpService
       .getData('/model_api_connection/start_subscription/', {})
       .subscribe((res) => {
-        if(res.status == "success") {
-          this.cameraStatus = res;
+        if(res.success) {
+          this.cameraStatus = res.response;
           this.cam = true;
           this.sendRequests()
         } else {
@@ -69,8 +69,8 @@ export class TrainingComponent implements OnInit {
     this.httpService
       .getData('/model_api_connection/stop_subscription/', {})
       .subscribe((res) => {
-        if(res.status == "success") {
-          this.cameraStatus = res;
+        if(res.success) {
+          this.cameraStatus = res.response;
           this.cam = false;
         } else {
           this.openSnackBar("Something went wrong", "ERROR")
