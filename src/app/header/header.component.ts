@@ -198,12 +198,12 @@ export class HeaderComponent implements OnInit {
       if (res) {
         // console.log(res);
 
-        this.serverStatus.django = res.django_status ? true : false;
-        this.serverStatus.fastapi = res.fastapi_status ? true : false;
-        this.serverStatus.database = res.database_status ? true : false;
-        this.django = res.django_status ? true : false;
-        this.fastapi = res.fastapi_status ? true : false;
-        this.database = res.database_status ? true : false;
+        this.serverStatus.django = res.response.django_status ? true : false;
+        this.serverStatus.fastapi = res.response.fastapi_status ? true : false;
+        this.serverStatus.database = res.response.database_status ? true : false;
+        this.django = res.response.django_status ? true : false;
+        this.fastapi = res.response.fastapi_status ? true : false;
+        this.database = res.response.database_status ? true : false;
 
 
         // DJANGO

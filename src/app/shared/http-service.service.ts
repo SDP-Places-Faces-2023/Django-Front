@@ -116,7 +116,10 @@ export interface ApiResponse {
 }
 
 export interface StatusResponse {
-  database_status: string;
-  django_status: string;
-  fastapi_status: string;
+  response: {
+    database_status: any;
+    django_status: any;
+    fastapi_status: any;
+  };
+  success: string;
 }

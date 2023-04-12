@@ -34,7 +34,7 @@ export class TrainingComponent implements OnInit {
     this.httpService
       .getData('/model_api_connection/training_status/', {})
       .subscribe((res) => {
-        this.modelStatus = res;
+        this.modelStatus = res.response;
         this.modelSuccess = this.modelStatus.success;
       });
   }
@@ -46,6 +46,8 @@ export class TrainingComponent implements OnInit {
         this.trainHistory = res;
         if(res.success) {
           this.trainStatus = res.success;
+        } else {
+          this.openSnackBar(res.error, "ERROR")
         }
         this.loading = false
       });
@@ -97,7 +99,7 @@ export class TrainingComponent implements OnInit {
           this.httpService
           .getData('/model_api_connection/get_frame/', {})
           .subscribe((res) => {
-            this.frameInfo = res;
+            this.frameInfo = res.response;
           });
           if (numRequests >= maxRequests) {
             break;
