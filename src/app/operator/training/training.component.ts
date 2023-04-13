@@ -35,7 +35,7 @@ export class TrainingComponent implements OnInit {
       .getData('/model_api_connection/training_status/', {})
       .subscribe((res) => {
         this.modelStatus = res.response;
-        this.modelSuccess = this.modelStatus.success;
+        this.modelSuccess = res.success;
       });
   }
   startTrain() {
@@ -43,7 +43,7 @@ export class TrainingComponent implements OnInit {
     this.httpService
       .postData2('/model_api_connection/train_model/')
       .subscribe((res) => {
-        this.trainHistory = res;
+        this.trainHistory = res.response;
         if(res.success) {
           this.trainStatus = res.success;
         } else {
