@@ -70,7 +70,7 @@ export class EmployeeImageComponent implements OnInit {
     postData.append('pincode', pincode);
 
     this.uploadService.getFiles(this.data.pincode).subscribe((res) => {
-      this.images = res;
+      this.images = res.response;
       this.loading = false
     });
   }
