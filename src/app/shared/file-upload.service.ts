@@ -86,13 +86,8 @@ export class FileUploadService {
   }
 }
 
-export interface ImageResponse {
+export interface Response {
   response: any,
   success: boolean
-}
-
-export interface UploadResponse {
-  error: string;
-  success: boolean;
 }
   

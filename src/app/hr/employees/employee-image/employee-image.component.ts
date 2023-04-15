@@ -11,8 +11,7 @@ import { HttpServiceService, ApiResponse } from 'src/app/shared/http-service.ser
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import {
   FileUploadService,
-  ImageResponse,
-  UploadResponse,
+  Response,
 } from 'src/app/shared/file-upload.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -55,7 +54,7 @@ export class EmployeeImageComponent implements OnInit {
     postData.append('pincode', this.data.pincode);
     this.uploadService
       .hasImages(this.data.pincode)
-      .subscribe((res: ImageResponse) => {
+      .subscribe((res: Response) => {
         if (res.response.has_images) {
           this.hasImagesRes = res.response.has_images;
           this.getImages();
@@ -158,12 +157,12 @@ export class EmployeeImageComponent implements OnInit {
 
     this.uploadService
       .upload(this.files, pincode)
-      .subscribe((res: UploadResponse) => {
+      .subscribe((res: Response) => {
         if (res.success) {
           this.openSnackBar('Images added', 'INSERT');
           this.hasImages()
         } else {
-          this.openSnackBar(`Error: ${res.error}`, 'ERROR');
+          this.openSnackBar(`Error: ${res.response.error}`, 'ERROR');
           this.progress = 0;
           this.currentFile = undefined;
           this.loading = false
