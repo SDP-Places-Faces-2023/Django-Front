@@ -7,6 +7,7 @@ import { EmployeeImageComponent } from './employee-image/employee-image.componen
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ServerStatusService } from '../../shared/server-status.service';
 import { EmployeeFilterComponent } from './employee-filter/employee-filter.component';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
 
 
 interface Employee {
@@ -115,6 +116,7 @@ export class EmployeesComponent implements OnInit {
 
   onAddImages(employee: Employee) {
     const dialogRef = this.dialog.open(EmployeeImageComponent, {
+      disableClose: true,
       position: { right: '0' },
       height: '100vh',
       width: '800px',
@@ -139,7 +141,18 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  deleteEmployee(employee: Employee) {
+  async deleteEmployee(employee: Employee) {
+    let result = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      result = dialogResult;
+    });
+
+    await dialogRef.afterClosed().toPromise();
+
+    if(!result) return;
+
     const postData = new FormData();
     postData.append('pincode', employee.pincode);
 

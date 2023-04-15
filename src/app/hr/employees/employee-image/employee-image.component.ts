@@ -75,7 +75,18 @@ export class EmployeeImageComponent implements OnInit {
     });
   }
 
-  bulkDelete() {
+  async bulkDelete() {
+    let result = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      result = dialogResult;
+    });
+
+    await dialogRef.afterClosed().toPromise();
+
+    if(!result) return;
+    
     let pincode = this.data.pincode;
     this.loading = true
 
@@ -91,12 +102,23 @@ export class EmployeeImageComponent implements OnInit {
     });
   }
 
-  deleteImage(filename: string) {
+  async deleteImage(filename: string) {
+    let result = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      result = dialogResult;
+    });
+
+    await dialogRef.afterClosed().toPromise();
+
+    if(!result) return;
+
     let pincode = this.data.pincode;
     let image = [filename];
     this.loading = true
 
-    this.uploadService
+    await this.uploadService
       .deleteImage(this.data.pincode, image)
       .subscribe((res) => {
         if (res.success) {
@@ -113,7 +135,18 @@ export class EmployeeImageComponent implements OnInit {
   //   this.openConfirmationDialog(this.deleteImage.bind(this), filename);
   // }
 
-  deleteSelectedImages() {
+  async deleteSelectedImages() {
+    let result = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      result = dialogResult;
+    });
+
+    await dialogRef.afterClosed().toPromise();
+
+    if(!result) return;
+
     let pincode = this.data.pincode;
     this.loading = true
 
@@ -155,9 +188,17 @@ export class EmployeeImageComponent implements OnInit {
     this.progress = 0;
     this.message = '';
 
+    function preventReload(e) {
+      e.preventDefault();
+      e.returnValue = 'mans?';
+    }
+
+    window.addEventListener('beforeunload', preventReload);
+
     this.uploadService
       .upload(this.files, pincode)
       .subscribe((res: Response) => {
+        window.removeEventListener("beforeunload",preventReload)
         if (res.success) {
           this.openSnackBar('Images added', 'INSERT');
           this.hasImages()
