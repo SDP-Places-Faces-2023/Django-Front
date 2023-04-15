@@ -89,26 +89,23 @@ export class TrainingComponent implements OnInit {
   }
 
   sendRequests() {
-    const intervalTime = 100; // 100 milliseconds between requests
-    const requestsPerInterval = 10;
+    const intervalTime = 2000; // 2000 milliseconds (2 seconds) between requests
     const maxRequests = 10000000000000000000;
     let numRequests = 0;
   
     interval(intervalTime)
       .pipe(
         takeWhile(() => this.cam == true),
-        take(maxRequests / requestsPerInterval)
+        take(maxRequests)
       )
       .subscribe(() => {
-        for (let i = 0; i < requestsPerInterval; i++) {
+        if (numRequests < maxRequests) {
           this.httpService
           .getData('/model_api_connection/get_frame/', {})
           .subscribe((res) => {
             this.frameInfo = res.response;
           });
-          if (numRequests >= maxRequests) {
-            break;
-          }
+          numRequests++;
         }
       });
   }
