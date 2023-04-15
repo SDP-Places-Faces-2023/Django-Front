@@ -35,7 +35,12 @@ export class TrainingComponent implements OnInit {
       .getData('/model_api_connection/training_status/', {})
       .subscribe((res) => {
         this.modelStatus = res.response;
-        this.modelSuccess = res.success;
+        if(res.response.status == "No training job found") {
+          this.modelSuccess = false;
+        } else { 
+          this.modelSuccess = res.success;
+        }
+        
       });
   }
   startTrain() {

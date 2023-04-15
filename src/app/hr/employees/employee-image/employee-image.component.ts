@@ -56,8 +56,8 @@ export class EmployeeImageComponent implements OnInit {
     this.uploadService
       .hasImages(this.data.pincode)
       .subscribe((res: ImageResponse) => {
-        if (res.has_images) {
-          this.hasImagesRes = res.has_images;
+        if (res.response.has_images) {
+          this.hasImagesRes = res.response.has_images;
           this.getImages();
         }
       });

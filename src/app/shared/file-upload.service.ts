@@ -87,7 +87,8 @@ export class FileUploadService {
 }
 
 export interface ImageResponse {
-    has_images: boolean;
+  response: any,
+  success: boolean
 }
 
 export interface UploadResponse {
