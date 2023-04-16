@@ -89,7 +89,7 @@ export class TrainingComponent implements OnInit {
   }
 
   sendRequests() {
-    const intervalTime = 2000; // 2000 milliseconds (2 seconds) between requests
+    const intervalTime = 705; 
     const maxRequests = 10000000000000000000;
     let numRequests = 0;
   
