@@ -2,7 +2,9 @@ FROM node:16 AS build
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps && \
+    npm config set fetch-retry-maxtimeout 160000
+
 COPY . .
 RUN npm run build
 FROM nginx:1.21
