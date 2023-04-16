@@ -4,6 +4,8 @@ import { interval } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { ServerStatusService } from '../../shared/server-status.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { UnrecognizedComponent } from './unrecognized/unrecognized.component';
 
 @Component({
   selector: 'app-training',
@@ -14,7 +16,8 @@ export class TrainingComponent implements OnInit {
   constructor(
     private httpService: HttpServiceService,
     public serverStatus: ServerStatusService,
-    public _snackBar: MatSnackBar
+    public _snackBar: MatSnackBar,
+    private dialog: MatDialog
     ) {}
   modelStatus: any;
   trainHistory: any;
@@ -37,10 +40,10 @@ export class TrainingComponent implements OnInit {
         this.modelStatus = res.response;
         if(res.response.status == "No training job found") {
           this.modelSuccess = false;
-        } else { 
+        } else {
           this.modelSuccess = res.success;
         }
-        
+
       });
   }
   startTrain() {
@@ -85,14 +88,14 @@ export class TrainingComponent implements OnInit {
   }
 
   getFrames() {
-    
+
   }
 
   sendRequests() {
-    const intervalTime = 705; 
+    const intervalTime = 705;
     const maxRequests = 10000000000000000000;
     let numRequests = 0;
-  
+
     interval(intervalTime)
       .pipe(
         takeWhile(() => this.cam == true),
@@ -114,5 +117,19 @@ export class TrainingComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  getUnrecognizedFolders() {
+    const dialogRef = this.dialog.open(UnrecognizedComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      panelClass: 'full-screen-modal'
+    });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   this.getEmployees()
+    // });
   }
 }

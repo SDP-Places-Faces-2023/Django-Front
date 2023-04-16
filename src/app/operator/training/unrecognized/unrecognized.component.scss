@@ -1,0 +1,40 @@
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  &__card {
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
+.toggle-position {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+
+.folder {
+  cursor: pointer;
+
+  :hover {
+    color: blue;
+  }
+}
+
+.mat-success {
+  background-color: rgb(255, 211, 68);
+  color: #000000;
+}
+
+
+.active {
+  background-color: rgb(185, 142, 0);
+  color: #000000;
+}

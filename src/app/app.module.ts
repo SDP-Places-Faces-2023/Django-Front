@@ -36,6 +36,7 @@ import { TrainingComponent } from './operator/training/training.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeeFilterComponent } from './hr/employees/employee-filter/employee-filter.component';
 import { AttendanceFilterComponent } from './hr/attendance/attendance-filter/attendance-filter.component';
+import { UnrecognizedComponent } from './operator/training/unrecognized/unrecognized.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AttendanceFilterComponent } from './hr/attendance/attendance-filter/att
     TrainingComponent,
     HomeComponent,
     EmployeeFilterComponent,
-    AttendanceFilterComponent
+    AttendanceFilterComponent,
+    UnrecognizedComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { AttendanceFilterComponent } from './hr/attendance/attendance-filter/att
     EmployeeImageComponent,
     ConfirmationDialogComponent,
     EmployeeFilterComponent,
-    AttendanceFilterComponent
+    AttendanceFilterComponent,
+    UnrecognizedComponent
   ],
 })
 export class AppModule {}

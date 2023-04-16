@@ -1,0 +1,84 @@
+<button mat-raised-button (click)="dialogRef.close()">Back</button>
+
+<div class="d-flex justify-content-center align-items-center mt-5">
+  <mat-progress-spinner
+    *ngIf="loading"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <ng-container *ngIf="!loading">
+      <div class="col-12">
+        <div
+          *ngIf="folders.length == 0"
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <img src="../../../assets/icons/no-data.png" alt="" class="mb-3" />
+          <p style="font-size: 24px">No folders found ...</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-3">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <ng-container *ngFor="let folder of folders">
+        <div class="d-flex flex-row mb-3">
+          <button mat-icon-button color="warn" (click)="deleteFolder(folder)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-flat-button color="success" [ngClass]="{'active': activeFolder === folder}" (click)="getImages(folder)">{{ folder }}</button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="col-9 images" *ngIf="images.length != 0">
+    <ng-container *ngFor="let image of images">
+      <div class="images__card" style="width: 30%; position: relative">
+        <div>
+          <img
+          style="width: 209px; height: 209px"
+          class="card-img-top"
+          [src]="'data:image/jpeg;base64,' + image.image"
+        />
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 16px">
+            {{ image.filename }}
+          </h5>
+          <!-- <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteImage(image.filename)"
+          >
+            Delete Image
+          </button> -->
+        </div>
+        <!-- <mat-checkbox
+          class="toggle-position"
+          (change)="onToggleChange($event, image)"
+        ></mat-checkbox> -->
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="!loading && folders.length != 0">
+    <div class="col-9">
+      <div
+        *ngIf="images.length == 0"
+        class="d-flex flex-column justify-content-center align-items-center"
+      >
+        <img src="../../../assets/icons/no-data.png" alt="" class="mb-3" />
+        <p style="font-size: 24px">Select a folder ...</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
